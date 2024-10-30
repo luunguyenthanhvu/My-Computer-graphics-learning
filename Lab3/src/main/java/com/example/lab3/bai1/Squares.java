@@ -23,14 +23,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class Triangle extends GLJPanel implements GLEventListener {
+public class Squares extends GLJPanel implements GLEventListener {
 
   private GLU glu;
   private GLUT glut;
   private float rotateX = 0.0f; // Góc xoay quanh trục X
   private float rotateY = 0.0f; // Góc xoay quanh trục Y
 
-  public Triangle() {
+  public Squares() {
     this.addGLEventListener(this);
 
     // thêm lắng nghe sự kiện bàn phím
@@ -107,40 +107,48 @@ public class Triangle extends GLJPanel implements GLEventListener {
   }
 
   public void drawPyramid(GL2 gl) {
-    // bắt đầu vẽ các đỉnh của hình chóp
-    gl.glBegin(GL.GL_TRIANGLES);
+    gl.glBegin(GL2.GL_QUADS);
     // Mặt trước (Màu đỏ)
     gl.glColor3f(1.0f, 0.0f, 0.0f);
-    gl.glVertex3f(0.0f, 1.0f, 0.0f);
-    gl.glVertex3f(-1.0f, -1.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, 1.0f);
     gl.glVertex3f(1.0f, -1.0f, 1.0f);
+    gl.glVertex3f(-1.0f, -1.0f, 1.0f);
 
     // Mặt phải
     gl.glColor3f(0.0f, 1.0f, 0.0f);
-    gl.glVertex3f(0.0f, 1.0f, 0.0f);
-    gl.glVertex3f(1.0f, -1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
     gl.glVertex3f(1.0f, -1.0f, -1.0f);
+    gl.glVertex3f(1.0f, -1.0f, 1.0f);
 
     // Mặt sau
     gl.glColor3f(1.0f, 0.0f, 1.0f);
-    gl.glVertex3f(0.0f, 1.0f, 0.0f);
-    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
 
     // Mặt trái
     gl.glColor3f(1.0f, 1.0f, 1.0f);
-    gl.glVertex3f(0.0f, 1.0f, 0.0f);
-    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, 1.0f);
     gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-    gl.glEnd();
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
 
-    // Vẽ đáy hình vuông
-    gl.glBegin(GL2.GL_QUADS);
+    // MẶt đáy
     gl.glColor3f(0.5f, 0.5f, 0.5f);
     gl.glVertex3f(-1.0f, -1.0f, 1.0f);
     gl.glVertex3f(1.0f, -1.0f, 1.0f);
     gl.glVertex3f(1.0f, -1.0f, -1.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+
+    // Mặt đỉnh
+    gl.glColor3f(0.5f, 1.5f, 0.5f);
+    gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
 
     gl.glEnd();
   }
@@ -150,7 +158,7 @@ public class Triangle extends GLJPanel implements GLEventListener {
       @Override
       public void run() {
         // create the OpenGL rendering canvas
-        GLJPanel panel = new Triangle();
+        GLJPanel panel = new Squares();
         panel.setPreferredSize(new Dimension(640, 480));
 
         // Create a animator
